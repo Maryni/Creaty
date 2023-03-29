@@ -18,6 +18,11 @@ public class GetInfo : MonoBehaviour
         }
     }
 
+    public void Call()
+    {
+        StartCoroutine(GetTexture(url));
+    }
+    
     IEnumerator GetTexture(string url)
     {
         var request = UnityWebRequestTexture.GetTexture(url);
@@ -39,8 +44,9 @@ public class GetInfo : MonoBehaviour
         
         if (!requestText.isHttpError && !requestText.isNetworkError )
         {
-            image.texture = (Texture2D)(DownloadHandlerTexture.GetContent(requestText));
-            Debug.Log($"Finished");
+            //image.texture = (Texture2D)(DownloadHandlerTexture.GetContent(requestText));
+            var text = DownloadHandlerBuffer.GetContent(requestText);
+            Debug.Log($"Request text = {text}");
         }
         else
         {

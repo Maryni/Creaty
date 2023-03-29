@@ -3,10 +3,11 @@ using System.Collections;
 using System.Runtime.InteropServices;
  
  
-public class TakeScreenshot : MonoBehaviour {
- 
+public class TakeScreenshot : MonoBehaviour
+{
     // Use this for initialization
-    public void Screenshot () {
+    public void Screenshot () 
+    {
         StartCoroutine(UploadPNG());
         //Debug.log (encodedText);
     }
@@ -18,15 +19,15 @@ public class TakeScreenshot : MonoBehaviour {
         // Create a texture the size of the screen, RGB24 format
         int width = Screen.width;
         int height = Screen.height;
-        var tex = new Texture2D( width, height, TextureFormat.RGB24, false );
+        var texture = new Texture2D( width, height, TextureFormat.RGB24, false );
  
         // Read screen contents into the texture
-        tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
-        tex.Apply();
+        texture.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
+        texture.Apply();
  
         // Encode texture into PNG
-        byte[] bytes = tex.EncodeToPNG();
-        Destroy( tex );
+        byte[] bytes = texture.EncodeToPNG();
+        Destroy( texture );
  
         //string ToBase64String byte[]
         string encodedText = System.Convert.ToBase64String (bytes);
@@ -34,7 +35,7 @@ public class TakeScreenshot : MonoBehaviour {
         var image_url = "data:image/png;base64," + encodedText;
  
         Debug.Log (image_url);
- 
+        
 #if !UNITY_EDITOR
         openWindow(image_url);
 #endif
